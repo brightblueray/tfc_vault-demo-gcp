@@ -35,7 +35,8 @@ variable "name" { default = "dynamic-gcp-creds-demo" }
 
 # Manually created a service account to be used to manage the temporary oath tokens
 resource "vault_gcp_secret_backend" "gcp" {
-  # credentials = file("rryjewski_sa_creds.json")
+  #credentials = file("rryjewski_sa_creds.json")
+  credentials = var.rryjewski_sa_creds
   path       = "${var.name}-path"
 
   default_lease_ttl_seconds = "120"
