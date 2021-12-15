@@ -26,17 +26,22 @@ locals {
   project = "rryjewski-gcpdemo-test"
 }
 
+variable "name" { default = "dynamic-gcp-creds-demo" }
+variable "rryjewski_sa_creds" {}
+variable "vault_user" { default = "rryjewski" }
+variable "vault_pwd" {}
+
 # Using Hashicorp Cloud Platform (HCP) Vault
 provider "vault" {
   address="https://vault-cluster.vault.3262e218-24bf-49f9-93e0-681713aa750c.aws.hashicorp.cloud:8200"
+  auth_login {
+    path = "auth/userpass/login/${var.vault_user}"
+    parameters = {password = var.vault_pwd}
+  }
 }
-
-variable "name" { default = "dynamic-gcp-creds-demo" }
-variable "rryjewski_sa_creds" {}
 
 # Manually created a service account to be used to manage the temporary oath tokens
 resource "vault_gcp_secret_backend" "gcp" {
-  #credentials = file("rryjewski_sa_creds.json")
   credentials = var.rryjewski_sa_creds
   path       = "${var.name}-path"
 
