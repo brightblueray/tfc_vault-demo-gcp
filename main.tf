@@ -35,6 +35,7 @@ variable "vault_pwd" {}
 provider "vault" {
   address="https://vault-cluster.vault.3262e218-24bf-49f9-93e0-681713aa750c.aws.hashicorp.cloud:8200"
   auth_login {
+    namespace = "admin"
     path = "auth/userpass/login/${var.vault_user}"
     parameters = {password = var.vault_pwd}
   }
