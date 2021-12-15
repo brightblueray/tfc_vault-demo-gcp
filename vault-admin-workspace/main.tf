@@ -26,9 +26,7 @@ locals {
 variable "name" { default = "dynamic-gcp-creds-demo" }
 variable "vault_user" {}
 variable "vault_pwd" {}
-  
-
-# variable "gcp-dynamic-creds-sa" {}
+variable "gcp-dynamic-creds-sa" {}
 
 # Using Hashicorp Cloud Platform (HCP) Vault
 provider "vault" {
@@ -42,8 +40,8 @@ provider "vault" {
 
 # Use a previously created a service account to manage access token
 resource "vault_gcp_secret_backend" "gcp" {
-  credentials = file("creds.json")
-  # credentials = var.gcp-dynamic-creds-sa
+  # credentials = file("creds.json")
+  credentials = var.gcp-dynamic-creds-sa
   path       = "${var.name}-path"
 
   default_lease_ttl_seconds = "120"
