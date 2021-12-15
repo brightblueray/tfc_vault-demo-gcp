@@ -1,3 +1,5 @@
+# Make sure you grab a vault token
+
 terraform {
   # Leverage TFC for state management and run execution
   cloud {
@@ -33,7 +35,7 @@ variable "name" { default = "dynamic-gcp-creds-demo" }
 
 # Manually created a service account to be used to manage the temporary oath tokens
 resource "vault_gcp_secret_backend" "gcp" {
-  credentials = file("rryjewski_sa_creds.json")
+  # credentials = file("rryjewski_sa_creds.json")
   path       = "${var.name}-path"
 
   default_lease_ttl_seconds = "120"
