@@ -32,6 +32,7 @@ provider "vault" {
 }
 
 variable "name" { default = "dynamic-gcp-creds-demo" }
+variable "rryjewski_sa_creds" {}
 
 # Manually created a service account to be used to manage the temporary oath tokens
 resource "vault_gcp_secret_backend" "gcp" {
